@@ -1,10 +1,10 @@
 // 封装 wx.request
 const fetch = (url, options) => {
-  console.log(options.data, "request data");
+  console.log(options.params, "request params");
   return new Promise((resolve, reject) => {
     wx.request({
       url,
-      data: options.data || {},
+      data: options.params || {},
       method: options.method || "GET",
       header: options.headers || {},
       dataType: options.dataType || "json",

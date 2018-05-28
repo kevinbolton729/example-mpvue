@@ -7,3 +7,6 @@ export const HOST = "http://120.79.142.73:7003";
 // 生产环境
 // export const URL_PREFIX = 'http://0.0.0.0:7002/public';
 // export const HOST = 'http://0.0.0.0:7002';
+
+// 网络请求
+export const TIMEOUT = 10000;

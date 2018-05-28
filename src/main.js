@@ -1,7 +1,9 @@
 import Vue from "vue";
 import store from "@/models";
-
 import App from "./App";
+
+// 样式
+import "../static/css/weui/index.css";
 
 Vue.config.productionTip = false;
 App.mpType = "app";
@@ -42,8 +44,8 @@ export default {
       borderStyle: "white",
       selectedColor: "#1da57a",
     },
-    networkTimeout: {
-      request: 10000,
-    },
+    // networkTimeout: {
+    //   request: 10000,
+    // },
   },
 };

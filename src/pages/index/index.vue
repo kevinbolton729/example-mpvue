@@ -1,12 +1,29 @@
 <template>
-  <div class="container">
-    <div class="userinfo">
-      <img class="userinfo-avatar" v-if="userInfo.avatarUrl" :src="userInfo.avatarUrl" background-size="cover" />
+  <div>
+    <div class="container">
+      <div class="userinfo">
+        <img class="userinfo-avatar" v-if="userInfo.avatarUrl" :src="userInfo.avatarUrl" background-size="cover" />
+      </div>
+      <picker @change="bindPickerChange" :value="index" :range="array">
+        <button size="mini" class="btn">已选中: {{array[index]}}</button>
+      </picker>
     </div>
-    <picker @change="bindPickerChange" :value="index" :range="array">
-      <button size="mini" class="btn">已选中: {{array[index]}}</button>
-    </picker>
-    <text>{{homeData.article[0].subtitle}}</text>
+    <div class="weui-cells__title">{{channelData[1].name}}</div>
+    <div class="weui-cells">
+      <div class="weui-cell">
+        <div class="weui-cell__bd">
+          <p>标题文字</p>
+        </div>
+        <div class="weui-cell__ft">{{homeData.article[2].subtitle}}</div>
+      </div>
+    </div>
+    <div class="page">
+      <div class="weui-progress">
+        <div class="weui-progress__bar">
+          <progress percent="80" stroke-width="3" />
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -24,6 +41,9 @@ export default {
     // Vuex状态管理
     homeData() {
       return this.$store.state.home.homeData;
+    },
+    channelData() {
+      return this.$store.state.home.channelData;
     },
     isLoading() {
       return this.$store.state.home.isLoading;
@@ -88,5 +108,15 @@ export default {
 .btn {
   background-color: @primary-theme;
   color: @primary-white;
+}
+
+// Progress
+.page {
+  margin-top: 50px;
+  padding: 15px;
+  box-sizing: border-box;
+}
+.weui-progress {
+  margin-bottom: 25px;
 }
 </style>

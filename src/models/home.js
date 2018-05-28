@@ -1,12 +1,21 @@
+import { requestAll } from "@/utils/fly";
 // 接口
 import api from "@/services/api";
 // 方法
 import parse from "@/utils/parse";
 
 // 请求函数
-const { getHomeData } = api;
+const { getHomeData, getChannelList } = api;
 // 解析响应
 const { parseResponse } = parse;
+
+// 并发请求处理函数
+const handler = (homeRes, channelRes) => {
+  const homeResData = parseResponse(homeRes).extData.data;
+  const channelResData = parseResponse(channelRes).extData.data;
+
+  return { code: 0, message: "请求数据成功", data: [homeResData, channelResData] };
+};
 
 const home = {
   namespaced: true,
@@ -14,6 +23,7 @@ const home = {
   state: {
     isLoading: false,
     homeData: [],
+    channelData: [],
   },
 
   getters: {},
@@ -25,14 +35,18 @@ const home = {
         type: "changeLoading",
         payload: true,
       });
-      const response = await getHomeData();
-      const { status, message, extData } = await parseResponse(response);
-      const { data } = await extData;
+      const response = await requestAll([getHomeData(), getChannelList()], handler);
+      const { code, message, data } = await response;
+      await console.log(data, "data");
 
-      if (status > 0) {
+      if (code === 0) {
         await commit({
           type: "changeHomeData",
-          payload: data,
+          payload: data[0],
+        });
+        await commit({
+          type: "changeChannelData",
+          payload: data[1],
         });
       } else {
         await console.log(message, "error message");
@@ -52,6 +66,9 @@ const home = {
     },
     changeHomeData(state, { payload }) {
       state.homeData = payload;
+    },
+    changeChannelData(state, { payload }) {
+      state.channelData = payload;
     },
   },
 };
