@@ -6,6 +6,7 @@
     <picker @change="bindPickerChange" :value="index" :range="array">
       <button size="mini" class="btn">已选中: {{array[index]}}</button>
     </picker>
+    <text>{{homeData.article[0].subtitle}}</text>
   </div>
 </template>
 
@@ -20,15 +21,12 @@ export default {
   },
 
   computed: {
-    // Vuex状态管理state.home
-    home() {
-      return this.$store.state.home;
-    },
+    // Vuex状态管理
     homeData() {
-      return this.home.homeData;
+      return this.$store.state.home.homeData;
     },
     isLoading() {
-      return this.home.isLoading;
+      return this.$store.state.home.isLoading;
     },
   },
 
