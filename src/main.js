@@ -24,5 +24,26 @@ export default {
       navigationBarTitleText: "家庭账单",
       navigationBarTextStyle: "black",
     },
+    tabBar: {
+      list: [
+        {
+          pagePath: "pages/index/main",
+          text: "首页",
+          iconPath: "/static/images/tab/home.png",
+          selectedIconPath: "/static/images/tab/home-selectedIcon.png",
+        },
+        {
+          pagePath: "pages/index/main",
+          text: "我的",
+          iconPath: "/static/images/tab/me.png",
+          selectedIconPath: "/static/images/tab/me-selectedIcon.png",
+        },
+      ],
+      borderStyle: "white",
+      selectedColor: "#1da57a",
+    },
+    networkTimeout: {
+      request: 10000,
+    },
   },
 };
