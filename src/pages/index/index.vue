@@ -8,7 +8,7 @@
         <button size="mini" class="btn">已选中: {{array[index]}}</button>
       </picker>
     </div>
-    <div class="weui-cells__title">{{channelData[1] && channelData[1].name}}</div>
+    <div class="weui-cells__title">{{channelData[4] && channelData[4].text}}</div>
     <div class="weui-cells">
       <div class="weui-cell">
         <div class="weui-cell__bd">
@@ -47,12 +47,6 @@ export default {
     },
     isLoading() {
       return this.$store.state.home.isLoading;
-    },
-    isChannelData() {
-      return this.channelData.length > 0;
-    },
-    isHomeData() {
-      return this.homeData.length > 0;
     },
   },
 
