@@ -1,6 +1,6 @@
 import Fly from "flyio/dist/npm/wx";
 // 配置
-import { API_CODE, API_DATA, API_INFO_ERROR, API_INFO_SUCCESS, API_TIMEOUT } from "./config";
+import { API_CODE, API_DATA, API_INFO_ERROR, API_INFO_SUCCESS, API_TIMEOUT } from "@/utils/config";
 
 // 获取 Fly实例
 const fly = new Fly();

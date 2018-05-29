@@ -1,4 +1,4 @@
-import request from "@/utils/fly";
+import request from "@/utils/request";
 // 方法
 // import {} from "@/utils/fns";
 // 配置

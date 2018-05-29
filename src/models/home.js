@@ -1,4 +1,4 @@
-import { requestAll } from "@/utils/fly";
+import { requestAll } from "@/utils/request";
 // 接口
 import api from "@/services/api";
 // 方法
