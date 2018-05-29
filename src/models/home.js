@@ -2,20 +2,12 @@ import { requestAll } from "@/utils/fly";
 // 接口
 import api from "@/services/api";
 // 方法
-import parse from "@/utils/parse";
+// import parse from "@/utils/parse";
 
 // 请求函数
 const { getHomeData, getChannelList } = api;
 // 解析响应
-const { parseResponse } = parse;
-
-// 并发请求处理函数
-const handler = (homeRes, channelRes) => {
-  const homeResData = parseResponse(homeRes).extData.data;
-  const channelResData = parseResponse(channelRes).extData.data;
-
-  return { code: 0, message: "请求数据成功", data: [homeResData, channelResData] };
-};
+// const { parseResponse } = parse;
 
 const home = {
   namespaced: true,
@@ -35,9 +27,8 @@ const home = {
         type: "changeLoading",
         payload: true,
       });
-      const response = await requestAll([getHomeData(), getChannelList()], handler);
+      const response = await requestAll([getHomeData(), getChannelList()]);
       const { code, message, data } = await response;
-      await console.log(data, "data");
 
       if (code === 0) {
         await commit({

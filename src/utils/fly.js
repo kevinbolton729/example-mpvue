@@ -1,25 +1,39 @@
 import Fly from "flyio/dist/npm/wx";
 // 配置
-import { TIMEOUT } from "./config";
+import { API_CODE, API_DATA, API_INFO_ERROR, API_INFO_SUCCESS, API_TIMEOUT } from "./config";
 
+// 获取 Fly实例
 const fly = new Fly();
-// 错误处理
+// 响应错误处理函数
 const errorHandler = {
-  code: 1,
-  message: "请求错误",
-  data: [],
+  code: API_CODE[1],
+  message: API_INFO_ERROR,
+  data: API_DATA,
+};
+// 响应成功处理函数
+const successHandler = {
+  code: API_CODE[0],
+  message: API_INFO_SUCCESS,
+  data: API_DATA,
 };
 
 // 发起多请求
-// 并发N个请求，handler = (res1,res2,...resN)=>{}
-export const requestAll = (fetchs, handler) => {
+export const requestAll = (fetchs) => {
   if (fetchs.length < 2) {
     console.log("请传入2个及以上的请求函数");
     return null;
   }
   return fly
     .all([...fetchs])
-    .then(fly.spread(handler))
+    .then(fly.spread((...response) => {
+      successHandler.data = response.reduce((arr, current) => {
+        arr.push(current.extData.data);
+        return arr;
+      }, []);
+      console.log(successHandler, "successHandler");
+
+      return successHandler;
+    }))
     .catch((error) => {
       console.log(error);
       return errorHandler;
@@ -44,7 +58,7 @@ const fetch = (url, options) => {
         // 设置responseType
         // eg.arraybuffer/blob/document/json/text/moz-chunked-arraybuffer/ms-stream
         responseType: options.responseType || "text",
-        timeout: options.timeout || TIMEOUT, // 超时时间
+        timeout: options.timeout || API_TIMEOUT, // 超时时间
         withCredentials,
       })
       .then((response) => {
