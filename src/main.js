@@ -48,4 +48,8 @@ export default {
     //   request: 10000,
     // },
   },
+  // 捕获 app error
+  onError(err) {
+    console.log(err, "全局捕获的Error");
+  },
 };

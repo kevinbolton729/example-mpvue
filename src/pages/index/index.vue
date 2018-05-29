@@ -32,7 +32,7 @@ export default {
   data() {
     return {
       userInfo: {},
-      array: ["美国", "中国", "巴西", "日本"],
+      array: ["美国", "中国", "以色列", "俄罗斯"],
       index: 0,
     };
   },
@@ -59,6 +59,12 @@ export default {
 
     dispatch({
       type: "home/getHomeData",
+    });
+  },
+
+  mounted() {
+    this.$nextTick(() => {
+      console.log(this.$root.$mp, "$mp");
     });
   },
 
