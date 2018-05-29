@@ -50,20 +50,17 @@ export default {
     },
   },
 
-  created() {
-    // 调用应用实例的方法获取全局数据
-    this.getUserInfo();
-
-    // 测试
-    const { dispatch } = this.$store;
-
-    dispatch({
-      type: "home/getHomeData",
-    });
-  },
-
   mounted() {
     this.$nextTick(() => {
+      // 调用应用实例的方法获取全局数据
+      this.getUserInfo();
+
+      // 测试
+      const { dispatch } = this.$store;
+      dispatch({
+        type: "home/getHomeData",
+      });
+
       console.log(this.$root.$mp, "$mp");
     });
   },
