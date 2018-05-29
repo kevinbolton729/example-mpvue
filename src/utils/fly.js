@@ -77,9 +77,9 @@ const request = (url, options) => {
     "Content-Type": "application/x-www-form-urlencoded",
     ...newOptions.headers,
   };
-  // POST PUT 请求时，序列化传递参数body
+
   if (
-    (newOptions.method !== "POST" || newOptions.method !== "PUT") &&
+    !(newOptions.method === "POST" || newOptions.method === "PUT") &&
     url.indexOf("/upload/") !== -1
   ) {
     newOptions.headers["X-Requested-With"] = "XMLHttpRequest";
