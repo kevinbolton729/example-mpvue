@@ -4,15 +4,15 @@
       <div class="userinfo">
         <img class="userinfo-avatar" v-if="userInfo.avatarUrl" :src="userInfo.avatarUrl" background-size="cover" />
       </div>
-      <picker @change="bindPickerChange" :value="index" :range="array">
-        <button size="mini" class="btn">已选中: {{array[index]}}</button>
+      <picker @change="pickerChange" :value="selected" :range="channelList">
+        <button size="mini" class="btn">已选中: {{ channelList[selected] }}</button>
       </picker>
     </div>
     <div class="weui-cells__title">{{channelData[4] && channelData[4].text}}</div>
     <div class="weui-cells">
       <div class="weui-cell">
         <div class="weui-cell__bd">
-          <p>标题文字</p>
+          <p>{{channelData[3] && channelData[3].name}}</p>
         </div>
         <div class="weui-cell__ft">{{homeData.article && homeData.article[2].subtitle}}</div>
       </div>
@@ -32,21 +32,25 @@ export default {
   data() {
     return {
       userInfo: {},
-      array: ["美国", "中国", "以色列", "俄罗斯"],
-      index: 0,
+      selected: 0,
     };
   },
 
   computed: {
-    // Vuex状态管理
+    // [Vuex状态管理]
     homeData() {
       return this.$store.state.home.homeData;
     },
     channelData() {
       return this.$store.state.home.channelData;
     },
-    isLoading() {
-      return this.$store.state.home.isLoading;
+    // [界面数据]
+    // 栏目数据
+    channelList() {
+      return this.channelData.reduce((arr, current) => {
+        arr.push(current.name);
+        return arr;
+      }, []);
     },
   },
 
@@ -68,9 +72,9 @@ export default {
   components: {},
 
   methods: {
-    bindPickerChange(e) {
-      console.log("picker发送选择改变，携带值为", e.target.value);
-      this.index = e.target.value;
+    pickerChange(event) {
+      console.log("picker发送选择改变，携带值为: ", event.target.value);
+      this.selected = event.target.value;
     },
     getUserInfo() {
       // 调用登录接口
