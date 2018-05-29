@@ -44,7 +44,7 @@ export const requestAll = (fetchs) => {
 const fetch = (url, options) => {
   console.log(options.params, "fly request params");
   let withCredentials = true;
-  if (options && !options.credentials) {
+  if (options && options.credentials !== undefined) {
     withCredentials = options.credentials;
   }
 
