@@ -10,7 +10,7 @@
 	"miniprogramRoot": "./dist/",
 	"compileType": "miniprogram",
 	"appid": "touristappid",
-	"projectname": "account-mpvue",
+	"projectname": "example-mpvue",
 	"libVersion": "2.0.8",
 	"condition": {
 		"search": {
