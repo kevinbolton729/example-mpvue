@@ -1,3 +1,1 @@
-# account
-
-> A Mpvue project
+# README
